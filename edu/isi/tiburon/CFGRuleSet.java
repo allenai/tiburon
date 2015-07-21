@@ -1642,7 +1642,7 @@ public class CFGRuleSet extends RuleSet implements Serializable {
 	// only add beam best hyperedges for each state.
 	
 	public HashSet<SlimEarleyState>[][] slimparse(StringItem string, int beam, int timeLevel) {
-		boolean debug = true;
+		boolean debug = false;
 
 		// initialize the earley state factory
 //		EarleyStateFactory.init(this, string.getSize());
@@ -1876,7 +1876,7 @@ public class CFGRuleSet extends RuleSet implements Serializable {
 	
 	// do earley parsing on the provided CFG and StringItem, returning a CFG that covers this string
 	public CFGRuleSet(CFGRuleSet cfg, StringItem string, int beam, int timeLevel) throws UnusualConditionException {
-		boolean debug = true;
+		boolean debug = false;
 		semiring = cfg.semiring;
 		nextRuleIndex = 0;
 
