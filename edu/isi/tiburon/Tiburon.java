@@ -2559,7 +2559,7 @@ public class Tiburon {
 		}
 	}    
 
-	public static int main(String argv[]) throws Exception {
+	public static void main(String argv[]) throws Exception {
 		boolean debug = false;
 
 		Debug.prettyDebug("This is Tiburon, version "+VERSION);
@@ -2644,13 +2644,13 @@ public class Tiburon {
 		catch (JSAPException e) {
 			System.err.println("Tiburon options improperly configured: "+e.getMessage());
 			System.err.println("Try 'tiburon -h` for a detailed help message");
-			return(1);
+			throw e;
 		}
 
 		catch (ConfigureException e) {
 			System.err.println("Tiburon options improperly configured: "+e.getMessage());
 			System.err.println("Try 'tiburon -h` for a detailed help message");
-			return(1);
+			throw e;
 		}
 
 
@@ -2659,7 +2659,7 @@ public class Tiburon {
 			Debug.prettyDebug("             "+jsap.getUsage());
 			Debug.prettyDebug("");
 			Debug.prettyDebug(jsap.getHelp());
-			return(0);
+			System.exit(0);
 		}
 
 
@@ -2671,7 +2671,7 @@ public class Tiburon {
 
 			Debug.prettyDebug("Usage: tiburon ");
 			Debug.prettyDebug("             "+jsap.getUsage());
-			return(1);
+			System.exit(1);
 		}
 		Date configureParametersTime = new Date();
 		Debug.dbtime(timeLevel, 2, registerAllParametersTime, configureParametersTime,  "register and configure parameters");
@@ -2709,27 +2709,27 @@ public class Tiburon {
 		}
 		catch (ConfigureException e) {
 			System.err.println("Illegal sequence of input files: "+e.getMessage());
-			return(1);
+			throw e;
 		}
 
 		catch (FileNotFoundException e) {
 			System.err.println("Input file not found: "+e.getMessage());
-			return(1);
+			throw e;
 		}
 		catch (DataFormatException e) {
 			// TODO: include context info here
 			System.err.println("Syntax error while detecting or reading input file: "+e.getMessage());
-			return(1);
+			throw e;
 
 		}
 		catch (UnusualConditionException e) {
 			// TODO: include context info here
 			System.err.println("Unusual condition while detecting input file: "+e.getMessage());
-			return(1);
+			throw e;
 		}
 		catch (IOException e) {
 			System.err.println("Problem processing input file: "+e.getMessage());
-			return(1);
+			throw e;
 		}
 		catch (Exception e) {
 			System.err.println("Throwing generic exception while detecting input file of type "+e.getClass().toString());
@@ -2741,7 +2741,7 @@ public class Tiburon {
 						+ ">> " 
 						+ elements[i].getMethodName() + "()");
 			}
-			return(-1);
+			throw e;
 		}	 
 
 
@@ -3112,15 +3112,15 @@ public class Tiburon {
 
 		catch (FileNotFoundException e) {
 			System.err.println("Input file not found: "+e.getMessage());
-			return(1);
+			throw e;
 		}
 		catch (DataFormatException e) {
 			System.err.println("Improper data specified: "+e.getMessage());
-			return(1);
+			throw e;
 		}
 		catch (ImproperConversionException e) {
 			System.err.println("Improper conversion: "+e.getMessage());
-			return(1);
+			throw e;
 
 		}
 		catch (OutOfMemoryError e) {
@@ -3133,13 +3133,13 @@ public class Tiburon {
 					"(like copying or extended) that was not detected within the first 1k of the file, or you specified an "+
 					"associativity (-l or -r) that was not the default, resulting in an impossible composition. Try reordering "+
 			"some rules in your transducer and/or accepting the default associativity");
-			return(1);
+			throw e;
 		}
 
 		catch (UnusualConditionException e) {
 			// TODO: include context info here
 			System.err.println("Unusual condition: "+e.getMessage());
-			return(1);
+			throw e;
 		}
 		catch (Exception e) {
 			System.err.println("Throwing generic exception of type "+e.getClass().toString());
@@ -3151,9 +3151,8 @@ public class Tiburon {
 						+ ">> " 
 						+ elements[i].getMethodName() + "()");
 			}
-			return (-1);
+			throw e;
 		}
-		return 0;
 	}
 
 }
