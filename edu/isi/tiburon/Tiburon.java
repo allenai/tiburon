@@ -2562,7 +2562,7 @@ public class Tiburon {
 	public static void main(String argv[]) throws Exception {
 		boolean debug = false;
 
-		Debug.prettyDebug("This is Tiburon, version "+VERSION);
+		// Debug.prettyDebug("This is Tiburon, version "+VERSION);
 
 		Date startTime = new Date();
 		// parameter processor and configuration settings
