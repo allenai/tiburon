@@ -22,6 +22,12 @@ public class Debug {
 	    w = new OutputStreamWriter(System.err);
 	}
     }
+
+	public static void checkInterrupted() {
+		if (Thread.currentThread().isInterrupted()) {
+			throw new RuntimeException("interrupted");
+		}
+	}
     
     // for debugging
 

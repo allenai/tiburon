@@ -104,6 +104,8 @@ public class RTGRuleSet extends RuleSet {
 
 	// recursively search for terminal symbols
 	public HashSet findTerminals(Item i) {
+		Debug.checkInterrupted();
+
 		TreeItem t = (TreeItem) i;
 		HashSet s = new HashSet();
 		// transducer state terminals don't count as real terminals
@@ -3161,7 +3163,8 @@ public class RTGRuleSet extends RuleSet {
 	// returns and memoizes the leaves of a rule that are states
 	// in general some bad coding...
 	public Vector<Symbol> getLeafChildren(Rule r) {
-		if (Thread.currentThread().isInterrupted()) { throw new RuntimeException("interrupted"); }
+		Debug.checkInterrupted();
+
 		if (!leafChildren.containsKey(r)) {
 			Vector<Symbol> v = new Vector<Symbol>();
 			Symbol [] syms = ((RTGRule)r).getRHSLeaves();
@@ -3745,6 +3748,8 @@ public class RTGRuleSet extends RuleSet {
 		boolean printChart = false;
 		semiring = trs.semiring;
 		nextRuleIndex = 0;
+
+		Debug.checkInterrupted();
 
 		EarleyState.resetParseMemo();
 		HashSet<EarleyState>[][] finishedChart = trs.parse(string, beam, timeLevel);

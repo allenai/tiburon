@@ -1072,9 +1072,7 @@ public class EarleyState implements Serializable {
 			Symbol[][][] newSyms, 
 			ArrayList<EarleyState> todoList,
 			RTGRuleSet parent, StringTransducerRule[] ruleset) throws ImproperConversionException {
-		if (Thread.currentThread().isInterrupted()) {
-			throw new RuntimeException("interrupted");
-		}
+		Debug.checkInterrupted();
 
 		boolean debug = false;
 		// there used to be a done list, but this flag is good enough
