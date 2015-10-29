@@ -3161,6 +3161,7 @@ public class RTGRuleSet extends RuleSet {
 	// returns and memoizes the leaves of a rule that are states
 	// in general some bad coding...
 	public Vector<Symbol> getLeafChildren(Rule r) {
+		if (Thread.currentThread().isInterrupted()) { throw new RuntimeException("interrupted"); }
 		if (!leafChildren.containsKey(r)) {
 			Vector<Symbol> v = new Vector<Symbol>();
 			Symbol [] syms = ((RTGRule)r).getRHSLeaves();
