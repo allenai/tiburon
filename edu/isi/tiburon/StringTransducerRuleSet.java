@@ -2083,7 +2083,8 @@ public class StringTransducerRuleSet extends TransducerRuleSet {
 		preds[s2i.get(getStartState())][0] = true;
 	//	preds.put(s2i.get(getStartState()), startint);
 		while (!agenda.isEmpty()) {
-			
+			Debug.checkInterrupted();
+
 //			if (agenda.size() % 1000 == 0) {
 //				Debug.prettyDebug(agenda.size()+" in agenda");
 //			}

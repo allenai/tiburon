@@ -3143,14 +3143,14 @@ public class Tiburon {
 		}
 		catch (Exception e) {
 			System.err.println("Throwing generic exception of type "+e.getClass().toString());
-			StackTraceElement elements[] = e.getStackTrace();
-			int n = elements.length;
-			for (int i = 0; i < n; i++) {       
-				System.err.println(e.toString()+": "+elements[i].getFileName() + ":" 
-						+ elements[i].getLineNumber() 
-						+ ">> " 
-						+ elements[i].getMethodName() + "()");
-			}
+//			StackTraceElement elements[] = e.getStackTrace();
+//			int n = elements.length;
+//			for (int i = 0; i < n; i++) {
+//				System.err.println(e.toString()+": "+elements[i].getFileName() + ":"
+//						+ elements[i].getLineNumber()
+//						+ ">> "
+//						+ elements[i].getMethodName() + "()");
+//			}
 			throw e;
 		}
 	}
