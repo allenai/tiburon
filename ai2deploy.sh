@@ -24,7 +24,7 @@ FILE="./tiburon.jar"
 
 # Check if we've already published this version.
 COMPLETE_URL="$DLURL/${GROUP_ID//.//}/$ARTIFACT_ID/$VERSION/"
-if [[ `wget -S --spider $COMPLETE_URL  2>&1 | grep 'HTTP/1.1 200 OK'` ]]; then
+if [[ `wget -S --spider "$COMPLETE_URL"  2>&1 | grep 'HTTP/1.1 200 OK'` ]]; then
   echo "$COMPLETE_URL exists. Please bump VERSION=$VERSION"
   exit 1
 fi
@@ -35,16 +35,16 @@ jar -cmf tiburon.mf tiburon.jar `find mjr edu com gnu -name '*.class' -print`
 
 # Deploy.
 mvn deploy:deploy-file \
-  -DgroupId=$GROUP_ID \
-  -DartifactId=$ARTIFACT_ID \
-  -Dversion=$VERSION \
+  -DgroupId="$GROUP_ID" \
+  -DartifactId="$ARTIFACT_ID" \
+  -Dversion="$VERSION" \
   -DgeneratePom=true \
   -Dpackaging=jar \
-  -DrepositoryId=$REPOSITORY_ID \
-  -Durl=$URL \
-  -Dfile=$FILE
+  -DrepositoryId="$REPOSITORY_ID" \
+  -Durl="$URL" \
+  -Dfile="$FILE"
 
 if [ $? -ne 0 ]; then
-    echo "Maven upload fail. Perhaps you forgot to bump the VERSION, currently at $VERSION?"
+    echo "Maven upload failure. Perhaps you forgot to bump the VERSION, currently at $VERSION?"
 fi
 
