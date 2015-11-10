@@ -6,21 +6,22 @@
 # See all the commands.
 set -x
 
-GROUP_ID="edu.isi"
+GROUP_ID="org.allenai.third_party"
 ARTIFACT_ID="tiburon"
-VERSION="1.0.1"
-REPOSITORY_ID="ai2"
-URL="http://utility.allenai.org:8081/nexus/content/repositories/public-releases"
+VERSION="1.0.10"
+REPOSITORY_ID="bintray"
+URL="https://api.bintray.com/maven/allenai/third_party/tiburon/;publish=1"
+DLURL="https://dl.bintray.com/allenai/third_party"
 FILE="./tiburon.jar"
 
-# Broken, the URL is not public and requires authentication.
-COMPLETE_URL="$URL/${GROUP_ID/.//}/$ARTIFACT_ID/$VERSION/"
+COMPLETE_URL="$DLURL/${GROUP_ID//.//}/$ARTIFACT_ID/$VERSION/"
 if [[ `wget -S --spider $COMPLETE_URL  2>&1 | grep 'HTTP/1.1 200 OK'` ]]; then
-  echo "URL exists: $url. Please bump VERSION=$VERSION"
+  echo "$COMPLETE_URL exists. Please bump VERSION=$VERSION"
   exit 1
 fi
 
 sh README-compile
+jar -cmf tiburon.mf tiburon.jar `find mjr edu com gnu -name '*.class' -print`
 
 mvn deploy:deploy-file \
   -DgroupId=$GROUP_ID \
